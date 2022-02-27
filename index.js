@@ -52,32 +52,72 @@ const promptManager = () => {
             message: 'Please select what you would like to do.',
             choices: ['Add Engineer.', 'Add Intern.', 'Finish adding members to team.']
         }
-    ]);
+        
+    ])
 };
 
-// const promptEngineer = () => {
+const promptEngineer = teamProfileData => {
 
-//     console.log (`
-//     =====================================
-//     Engineer Adding Phase!
-//     =====================================
-//     `)
-//     return inquirer.prompt([
-//         {
-//             type: 'input',
-//             name: 'engineerName',
-//             message: 'Whats is your Engineers name?',
-//             validate: engineerName => {
-//                 if (engineerName) {
-//                     return true;
-//                 } else {
-//                     console.log('Please enter a name for your engineer!')
-//                     return false;
-//                 }
-//             }
-//         }
-//     ])
-// };
+    console.log (`
+    =====================================
+    Engineer Adding Phase!
+    =====================================
+    `)
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'engineerName',
+            message: 'Whats is your Engineers name?',
+            validate: engineerName => {
+                if (engineerName) {
+                    return true;
+                } else {
+                    console.log('Please enter a name for your engineer!')
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'engineerID',
+            message: 'What is your engineers id number?',
+            validate: engineerID => {
+                if (engineerID) {
+                    return true;
+                } else {
+                    console.log('Please enter an ID number for your employee.')
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'engineerEmail',
+            message: 'What is your engineers email address?',
+            validate: engineerEmail => {
+                if (engineerEmail) {
+                    return true;
+                } else {
+                    console.log('Please enter an email for your engineer!')
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'engineerGithub',
+            message: 'What is your engineers Github username?',
+            validate: engineerGithub => {
+                if (engineerGithub) {
+                    return true;
+                } else {
+                    console.log('Please enter a Github username for your engineer!')
+                    return false;
+                }
+            }
+        }
+    ])
+};
 
 const writeFile = fileContent => {
     return new Promise((resolve, reject) => {
@@ -115,8 +155,8 @@ const copyFile = () => {
 };
 
 promptManager()
-
-.then(teamData => {
+.then(promptEngineer)
+.then(pageIndex => {
     return writeFile(pageIndex);
 })
 
