@@ -39,81 +39,38 @@ const promptManager = () => {
             type: 'input',
             name: 'officeNumber',
             message: 'What is your office number for your manager?'
-        },
-        {
-            type: 'rawlist',
-            name: 'confirmOption',
-            message: 'Please select what you would like to do.',
-            choices: ['Add Engineer.', 'Add Intern.', 'Finish adding members to team.']
         }
         
     ])
 };
 
-const promptEngineer = teamProfileData => {
+const promptTeam = teamData => {
+    console.log('Please enter information about your team!');
 
-    console.log (`
-    =====================================
-    Engineer Adding Phase!
-    =====================================
-    `)
-    return inquirer.prompt([
+    if(!teamData.profile) {
+        teamData.profile = [];
+    }
+    return inquirer
+    .prompt([
         {
-            type: 'input',
-            name: 'engineerName',
-            message: 'Whats is your Engineers name?',
-            validate: engineerName => {
-                if (engineerName) {
-                    return true;
-                } else {
-                    console.log('Please enter a name for your engineer!')
-                    return false;
-                }
-            }
-        },
-        {
-            type: 'input',
-            name: 'engineerID',
-            message: 'What is your engineers id number?',
-            validate: engineerID => {
-                if (engineerID) {
-                    return true;
-                } else {
-                    console.log('Please enter an ID number for your employee.')
-                    return false;
-                }
-            }
-        },
-        {
-            type: 'input',
-            name: 'engineerEmail',
-            message: 'What is your engineers email address?',
-            validate: engineerEmail => {
-                if (engineerEmail) {
-                    return true;
-                } else {
-                    console.log('Please enter an email for your engineer!')
-                    return false;
-                }
-            }
-        },
-        {
-            type: 'input',
-            name: 'engineerGithub',
-            message: 'What is your engineers Github username?',
-            validate: engineerGithub => {
-                if (engineerGithub) {
-                    return true;
-                } else {
-                    console.log('Please enter a Github username for your engineer!')
-                    return false;
-                }
-            }
+            type: 'rawlist',
+            name: 'name',
+            message: 'What is your favorite color?',
+            choices: ['Black', 'Green', 'Red', 'Orange', 'Yellow', 'Blue', 'Indigo', 'Purple', 'White']
         }
     ])
-};
+    .then(profileData => {
+        teamData.profile.push(profileData);
+        if (profileData.confirmAddProject) {
+            return promptTeam(teamData);
+        } else {
+            return teamData;
+        }
+    });
+}
 
 promptManager()
+    .then(promptTeam)
     .then(teamData => {
         return generatePage(teamData);
     })
