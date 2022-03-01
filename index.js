@@ -3,7 +3,7 @@ const generatePage = require('./src/page-template');
 const { writeFile, copyFile } = require('./utils/generate-site');
 
 
-const promptManager = () => {
+const promptManager = managerData => {
 
     console.log(`
     =====================================
@@ -39,40 +39,85 @@ const promptManager = () => {
             type: 'input',
             name: 'officeNumber',
             message: 'What is your office number for your manager?'
+        },
+        {
+            type: 'rawlist',
+            name: 'managerOption',
+            message: 'Would you like to add an engineer, an intern, or complete your profile?',
+            choices: ['Add an Engineer.', 'Add an Intern.', 'Finish Profile Generator']
         }
         
     ])
+    .then (({ managerOption }) => {
+        if (managerOption === 'Add an Engineer.') {
+            return promptEngineer();
+        } else if (managerOption === 'Add an Intern.') {
+            return promptIntern();
+        }
+    });
 };
 
-const promptTeam = teamData => {
+
+const promptEngineer = engineerData => {
     console.log('Please enter information about your team!');
 
-    if(!teamData.profile) {
-        teamData.profile = [];
-    }
     return inquirer
     .prompt([
         {
-            type: 'rawlist',
+            type: 'type',
             name: 'name',
-            message: 'What is your favorite color?',
-            choices: ['Black', 'Green', 'Red', 'Orange', 'Yellow', 'Blue', 'Indigo', 'Purple', 'White']
+            message: 'Please enter a name for your Engineer.',
+        },
+        {
+            type: 'type',
+            name: 'name',
+            message: 'Please enter an email for your Engineer.',
+        },
+        {
+            type: 'type',
+            name: 'name',
+            message: 'Please enter an ID for your Engineer.',
+        },
+        {
+            type: 'type',
+            name: 'name',
+            message: 'Please enter a Github username for your Engineer.',
         }
     ])
-    .then(profileData => {
-        teamData.profile.push(profileData);
-        if (profileData.confirmAddProject) {
-            return promptTeam(teamData);
-        } else {
-            return teamData;
+};
+
+const promptIntern = internData => {
+    console.log('Please enter information about your intern!');
+    
+    return inquirer
+    .prompt([
+        {
+            type: 'type',
+            name: 'name',
+            message: 'Please enter a name for your Intern.'
+        },
+        {
+            type: 'type',
+            name: 'name',
+            message: 'Please enter the email for your Intern.',
+        },
+        {
+            type: 'type',
+            name: 'name',
+            message: 'Please enter an ID for your Intern.',
+        },
+        {
+            type: 'type',
+            name: 'name',
+            message: 'Please enter the school where your Intern went.',
         }
-    });
-}
+    ])
+};
+
 
 promptManager()
-    .then(promptTeam)
-    .then(teamData => {
-        return generatePage(teamData);
+    .then(managerData => {
+        return generatePage(managerData);
     })
     .then(pageHTML => {
         return writeFile(pageHTML);

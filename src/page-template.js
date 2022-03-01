@@ -12,7 +12,7 @@ const generateManager = managerText => {
 };
 
 module.exports = templateData => {
-    const { projects, ...header } = templateData;
+    const { manager, ...header } = templateData;
 
     return `
     <!DOCTYPE html>
@@ -33,7 +33,7 @@ module.exports = templateData => {
             </div>
         </header>
         <main class="container my-5">
-            ${generateManager(projects)}
+            ${generateManager(manager)}
         </main>
     </body>
     </html>
