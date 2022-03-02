@@ -1,8 +1,20 @@
+// create the manager section
+const generateManager = managerText => {
+  if (!managerText) {
+    return '';
+  }
 
+  return `
+  <section class="my-3" id="about">
+    <h2 class="text-dark bg-primary p-2 display-inline-block">About Me</h2>
+    <p>${managerInput}</p>
+  </section>
+  `
+}
 // export function to generate entire page
 module.exports = templateData => {
   // destructure page data by section
-  const { ...header } = templateData;
+  const { manager, ...header } = templateData;
 
   return `
   <!DOCTYPE html>
@@ -32,7 +44,7 @@ module.exports = templateData => {
       </div>
     </header>
     <main class="container my-5">
-
+      ${generateManager(manager)}
     </main>
     <footer class="container text-center py-3">
       <h3 class="text-dark">&copy;2020 by ${header.managerName}</h3>
