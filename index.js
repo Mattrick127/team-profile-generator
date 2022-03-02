@@ -13,15 +13,7 @@ const promptManager = () => {
         {
             type: 'input',
             name: 'managerName',
-            message: 'What is your team managers name?? (Required)',
-            validate: managerNameInput => {
-                if (managerNameInput) {
-                    return true;
-                } else {
-                    console.log('You must input a name for your manager!')
-                    return false;
-                }
-            }
+            message: 'What is your team managers name?? (Required)'
         },
         {
             type: 'number',
@@ -37,26 +29,12 @@ const promptManager = () => {
             type: 'input',
             name: 'officeNumber',
             message: 'What is your office number for your manager?'
-        }
-    ])
-};
-
-const promptTeam = teamData => {
-    console.log (`
-    ==========================================
-    Please select which you would like to add.
-    ==========================================
-    `);
-    if (!teamData.projects) {
-        teamData.projects = [];
-    }
-    return inquirer
-    .prompt([
+        },
         {
             type: 'rawlist',
-            name: 'option',
-            message: 'Would you like to add another Engineer, an Intern, or finish profile?',
-            choices: ['Add an Engineer.', 'Add an Intern', 'Finish Profile Generator']
+            name: 'managerOption',
+            message: 'Would you like to add an engineer, an intern, or complete your profile?',
+            choices: ['Add an Engineer.', 'Add an Intern.', 'Finish Profile Generator']
         }
     ])
 };
@@ -64,7 +42,6 @@ const promptTeam = teamData => {
 
 
 promptManager()
-    .then(promptTeam)
     .then(teamData => {
         return generatePage(teamData);
     })
