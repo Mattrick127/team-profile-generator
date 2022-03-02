@@ -7,7 +7,7 @@ const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
-const promptManager = () => {
+const promptManager = teamData => {
 
     console.log(`
     =====================================
@@ -41,7 +41,7 @@ const promptManager = () => {
         },
         {
             type: 'input',
-            name: 'officeumber',
+            name: 'officeNumber',
             message: 'What is your office number for your manager?'
         },
         {
@@ -83,7 +83,7 @@ const promptEngineer = () => {
             type: 'rawlist',
             name: 'engineerOption',
             message: 'Would you like to add another Engineer, an Intern, or finish profile?',
-            choices: ['Add an Engineer.', 'Add an Intern', 'Finish Profile Generator']
+            choices: ['Add an Engineer.', 'Add an Intern',]
         }
     ])
 };
@@ -116,7 +116,7 @@ const promptIntern = () => {
             type: 'rawlist',
             name: 'internChoice',
             message: 'Would you like to add another Engineer, an Intern, or finish profile?',
-            choices: ['Add an Engineer.', 'Add an Intern', 'Finish Profile Generator']
+            choices: ['Add an Engineer.', 'Add an Intern',]
         }
     ])
 };
