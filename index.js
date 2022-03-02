@@ -31,6 +31,11 @@ const promptManager = () => {
             message: 'What is your office number for your manager?'
         },
         {
+            type: 'input',
+            name: 'managerGithub',
+            message: 'What is your Github username?'
+        },
+        {
             type: 'rawlist',
             name: 'managerOption',
             message: 'Would you like to add an engineer, an intern, or complete your profile?',
