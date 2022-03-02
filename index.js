@@ -14,7 +14,7 @@ const promptManager = managerData => {
     return inquirer.prompt([
         {
             type: 'input',
-            name: 'name',
+            name: 'managerName',
             message: 'What is your team managers name?? (Required)',
             validate: managerNameInput => {
                 if (managerNameInput) {
@@ -27,17 +27,17 @@ const promptManager = managerData => {
         },
         {
             type: 'number',
-            name: 'employeeID',
+            name: 'managerID',
             message: 'What is your team managers employee ID?'
         },
         {
             type: 'input',
-            name: 'email',
+            name: 'managerEmail',
             message: 'What is your managers email address?'
         },
         {
             type: 'input',
-            name: 'officeNumber',
+            name: 'officeumber',
             message: 'What is your office number for your manager?'
         },
         {
@@ -58,66 +58,103 @@ const promptManager = managerData => {
 };
 
 
+
 const promptEngineer = engineerData => {
     console.log('Please enter information about your team!');
-
+    if (!engineerData.engineer) {
+        engineerData.engineer = [];
+    }
     return inquirer
     .prompt([
         {
             type: 'type',
-            name: 'name',
+            name: 'engineerName',
             message: 'Please enter a name for your Engineer.',
         },
         {
             type: 'type',
-            name: 'name',
+            name: 'engineerEmail',
             message: 'Please enter an email for your Engineer.',
         },
         {
             type: 'type',
-            name: 'name',
+            name: 'engineerID',
             message: 'Please enter an ID for your Engineer.',
         },
         {
             type: 'type',
-            name: 'name',
+            name: 'engineerGithub',
             message: 'Please enter a Github username for your Engineer.',
+        },
+        {
+            type: 'rawlist',
+            name: 'engineerOption',
+            message: 'Would you like to add another Engineer, an Intern, or finish profile?',
+            choices: ['Add an Engineer.', 'Add an Intern', 'Finish Profile Generator']
         }
     ])
+    .then (({ engineerOption }) => {
+        if (engineerOption === 'Add an Engineer.') {
+            return promptEngineer();
+        } else if (engineerOption === 'Add an Intern.') {
+            return promptIntern();
+        }
+    });
 };
 
 const promptIntern = internData => {
     console.log('Please enter information about your intern!');
-    
+    if (!internData.intern) {
+        internData.intern = [];
+    }
     return inquirer
     .prompt([
         {
             type: 'type',
-            name: 'name',
+            name: 'internName',
             message: 'Please enter a name for your Intern.'
         },
         {
             type: 'type',
-            name: 'name',
+            name: 'internEmail',
             message: 'Please enter the email for your Intern.',
         },
         {
             type: 'type',
-            name: 'name',
+            name: 'internID',
             message: 'Please enter an ID for your Intern.',
         },
         {
             type: 'type',
-            name: 'name',
+            name: 'internSchool',
             message: 'Please enter the school where your Intern went.',
+        },
+        {
+            type: 'rawlist',
+            name: 'internChoice',
+            message: 'Would you like to add another Engineer, an Intern, or finish profile?',
+            choices: ['Add an Engineer.', 'Add an Intern', 'Finish Profile Generator']
         }
     ])
+    .then (({ internOption }) => {
+        if (internOption === 'Add an Engineer.') {
+            return promptEngineer();
+        } else if (internOption === 'Add an Intern.') {
+            return promptIntern();
+        }
+    });
 };
 
 
 promptManager()
     .then(managerData => {
         return generatePage(managerData);
+    })
+    .then(engineerData => {
+        return generatePage(engineerData);
+    })
+    .then(internData => {
+        return generatePage(internData);
     })
     .then(pageHTML => {
         return writeFile(pageHTML);
