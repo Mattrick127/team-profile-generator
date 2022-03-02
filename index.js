@@ -3,7 +3,11 @@ const generatePage = require('./src/page-template');
 const { writeFile, copyFile } = require('./utils/generate-site');
 
 
-const promptManager = managerData => {
+const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
+
+const promptManager = () => {
 
     console.log(`
     =====================================
@@ -46,24 +50,13 @@ const promptManager = managerData => {
             message: 'Would you like to add an engineer, an intern, or complete your profile?',
             choices: ['Add an Engineer.', 'Add an Intern.', 'Finish Profile Generator']
         }
-        
     ])
-    .then (({ managerOption }) => {
-        if (managerOption === 'Add an Engineer.') {
-            return promptEngineer();
-        } else if (managerOption === 'Add an Intern.') {
-            return promptIntern();
-        }
-    });
 };
 
 
 
-const promptEngineer = engineerData => {
+const promptEngineer = () => {
     console.log('Please enter information about your team!');
-    if (!engineerData.engineer) {
-        engineerData.engineer = [];
-    }
     return inquirer
     .prompt([
         {
@@ -93,20 +86,10 @@ const promptEngineer = engineerData => {
             choices: ['Add an Engineer.', 'Add an Intern', 'Finish Profile Generator']
         }
     ])
-    .then (({ engineerOption }) => {
-        if (engineerOption === 'Add an Engineer.') {
-            return promptEngineer();
-        } else if (engineerOption === 'Add an Intern.') {
-            return promptIntern();
-        }
-    });
 };
 
-const promptIntern = internData => {
+const promptIntern = () => {
     console.log('Please enter information about your intern!');
-    if (!internData.intern) {
-        internData.intern = [];
-    }
     return inquirer
     .prompt([
         {
@@ -136,25 +119,12 @@ const promptIntern = internData => {
             choices: ['Add an Engineer.', 'Add an Intern', 'Finish Profile Generator']
         }
     ])
-    .then (({ internOption }) => {
-        if (internOption === 'Add an Engineer.') {
-            return promptEngineer();
-        } else if (internOption === 'Add an Intern.') {
-            return promptIntern();
-        }
-    });
 };
 
 
 promptManager()
-    .then(managerData => {
-        return generatePage(managerData);
-    })
-    .then(engineerData => {
-        return generatePage(engineerData);
-    })
-    .then(internData => {
-        return generatePage(internData);
+    .then(teamData => {
+        return generatePage(teamData);
     })
     .then(pageHTML => {
         return writeFile(pageHTML);
