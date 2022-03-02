@@ -21,6 +21,7 @@ module.exports = templateData => {
   <body>
     <header>
       <div class="container flex-row justify-space-between align-center py-3">
+        <h1>MANAGER!</h1>
         <h1 class="page-title text-secondary bg-dark py-2 px-3">${header.managerName}</h1>
         <h1 class="page-title text-secondary bg-dark py-2 px-3">${header.managerEmail}</h1>
         <h1 class="page-title text-secondary bg-dark py-2 px-3">${header.managerID}</h1>
