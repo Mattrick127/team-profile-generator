@@ -1,8 +1,12 @@
 const inquirer = require('inquirer');
+
 const Manager = require('./lib/Manager');
+
 const generatePage = require('./src/page-template');
 const { writeFile, copyFile } = require('./utils/generate-site');
+
 let teamArray = [];
+
 const promptManager = () => {
     console.log(`
     =====================================
@@ -31,12 +35,6 @@ const promptManager = () => {
             name: 'officeNumber',
             message: 'What is your office number for your manager?'
         },
-        {
-            type: 'list',
-            name: 'managerOption',
-            message: 'Would you like to add an engineer, an intern, or complete your profile?',
-            choices: ['Add an Engineer.', 'Add an Intern.', 'Finish Profile Generator']
-        }
     ])
     .then(managerData => {
         const { managerName, managerID, managerEmail, officeNumber} = managerData;
@@ -47,16 +45,36 @@ const promptManager = () => {
     })
 };
 
+const promptSelect = () =>{
+    return inquirer
+    .prompt([
+        {
+            type: 'list',
+            name: 'managerOption',
+            message: 'Would you like to add an engineer, an intern, or complete your profile?',
+            choices: ['Add an Engineer.', 'Add an Intern.', 'Finish Profile Generator']
+        }
+    ])
+    .then (({ managerOption }) => {
+        if(managerOption === 'Add an Engineer.') {
+            promptEngineer();
+        } else {
+        (managerOption === 'Add an Intern.') 
+            promptIntern();
+        
+        }
+    })
+}
+
 const promptEngineer = () => {
     console.log('Please enter information about your team!');
     return inquirer
     .prompt([
         {
-            type: 'rawlist',
-            name: 'engineerOption',
-            message: 'Would you like to add another Engineer, an Intern, or finish profile?',
-            choices: ['Add an Engineer.', 'Add an Intern', 'Finish Profile Generator']
-        }
+            type: 'type',
+            name: 'engineerGithub',
+            message: 'Please enter a Github username for your Engineer.',
+        },
     ])
 };
 
@@ -65,16 +83,16 @@ const promptIntern = () => {
     return inquirer
     .prompt([
         {
-            type: 'rawlist',
-            name: 'internChoice',
-            message: 'Would you like to add another Engineer, an Intern, or finish profile?',
-            choices: ['Add an Engineer.', 'Add an Intern', 'Finish Profile Generator']
-        }
+            type: 'type',
+            name: 'internSchool',
+            message: 'Please enter the school where your Intern went.',
+        },
     ])
 };
 
 
 promptManager()
+    .then (promptSelect);
     // .then(generatorData => {
     //     return generatePage(generatorData);
     // })
