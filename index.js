@@ -43,7 +43,6 @@ const promptManager = () => {
         const manager = new Manager (managerName, managerID, managerEmail, officeNumber);
 
         teamArray.push(manager)
-        console.log(manager);
     })
 };
 
@@ -98,7 +97,6 @@ const promptEngineer = () => {
         const engineer = new Engineer ( engineerName, engineerID, engineerEmail, engineerGithub );
 
         teamArray.push(engineer)
-        console.log(engineer);
         promptSelect();
     })
 };
@@ -133,27 +131,30 @@ const promptIntern = () => {
         const intern = new Intern ( internName, internID, internEmail, internGithub );
 
         teamArray.push(intern)
-        console.log(intern);
         promptSelect();
     })
 };
 
+const buildTeam = () => {
+    console.log(teamArray)
+};
 
 promptManager()
-    .then (promptSelect);
-    // .then(generatorData => {
-    //     return generatePage(generatorData);
-    // })
-    // .then(pageHTML => {
-    //     return writeFile(pageHTML);
-    // })
-    // .then(writeFileResponse => {
-    //     console.log(writeFileResponse);
-    //     return copyFile();
-    // })
-    // .then(copyFileResponse => {
-    //     console.log(copyFileResponse);
-    // })
-    // .catch(err => {
-    //     console.log(err);
-    // });
+    .then (promptSelect)
+
+    .then(teamArray => {
+        return generatePage(teamArray);
+    })
+    .then(pageHTML => {
+        return writeFile(pageHTML);
+    })
+    .then(writeFileResponse => {
+        console.log(writeFileResponse);
+        return copyFile();
+    })
+    .then(copyFileResponse => {
+        console.log(copyFileResponse);
+    })
+    .catch(err => {
+        console.log(err);
+    });
