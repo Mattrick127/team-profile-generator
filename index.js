@@ -31,6 +31,12 @@ const promptManager = () => {
             name: 'officeNumber',
             message: 'What is your office number for your manager?'
         },
+        {
+            type: 'list',
+            name: 'managerOption',
+            message: 'Would you like to add an engineer, an intern, or complete your profile?',
+            choices: ['Add an Engineer.', 'Add an Intern.', 'Finish Profile Generator']
+        }
     ])
     .then(managerData => {
         const { managerName, managerID, managerEmail, officeNumber} = managerData;
@@ -40,6 +46,7 @@ const promptManager = () => {
         console.log(manager);
     })
 };
+
 const promptEngineer = () => {
     console.log('Please enter information about your team!');
     return inquirer
@@ -68,26 +75,19 @@ const promptIntern = () => {
 
 
 promptManager()
-    .then(generatorData => {
-        return generatePage(generatorData);
-    })
-    .then(pageHTML => {
-        return writeFile(pageHTML);
-    })
-    .then(writeFileResponse => {
-        console.log(writeFileResponse);
-        return copyFile();
-    })
-    .then(copyFileResponse => {
-        console.log(copyFileResponse);
-    })
-    .catch(err => {
-        console.log(err);
-    });
-
-
-//     .then(function(answers){
-
-//         let newManager = new Manager(answers.managerName,answers.managerID,answers.managerEmail,answers.officeNumber);
-//         answers.managers.push(newManager)
-// });
+    // .then(generatorData => {
+    //     return generatePage(generatorData);
+    // })
+    // .then(pageHTML => {
+    //     return writeFile(pageHTML);
+    // })
+    // .then(writeFileResponse => {
+    //     console.log(writeFileResponse);
+    //     return copyFile();
+    // })
+    // .then(copyFileResponse => {
+    //     console.log(copyFileResponse);
+    // })
+    // .catch(err => {
+    //     console.log(err);
+    // });
