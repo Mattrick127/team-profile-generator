@@ -1,6 +1,8 @@
 const inquirer = require('inquirer');
 
 const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
 
 const generatePage = require('./src/page-template');
 const { writeFile, copyFile } = require('./utils/generate-site');
@@ -58,10 +60,10 @@ const promptSelect = () =>{
     .then (({ managerOption }) => {
         if(managerOption === 'Add an Engineer.') {
             promptEngineer();
-        } else {
-        (managerOption === 'Add an Intern.') 
-            promptIntern();
-        
+        } else if (managerOption === 'Add an Intern.') {
+            promptIntern(); 
+        } else if (managerOption === 'Finish Profile Generator') {
+            buildTeam();
         }
     })
 }
@@ -72,10 +74,33 @@ const promptEngineer = () => {
     .prompt([
         {
             type: 'type',
+            name: 'engineerName',
+            message: 'Please enter a name for your Engineer.',
+        },
+        {
+            type: 'type',
+            name: 'engineerEmail',
+            message: 'Please enter an email for your Engineer.',
+        },
+        {
+            type: 'type',
+            name: 'engineerID',
+            message: 'Please enter an ID for your Engineer.',
+        },
+        {
+            type: 'type',
             name: 'engineerGithub',
             message: 'Please enter a Github username for your Engineer.',
         },
     ])
+    .then(engineerData => {
+        const { engineerName, engineerID, engineerEmail, engineerGithub } = engineerData;
+        const engineer = new Engineer ( engineerName, engineerID, engineerEmail, engineerGithub );
+
+        teamArray.push(engineer)
+        console.log(engineer);
+        promptSelect();
+    })
 };
 
 const promptIntern = () => {
@@ -84,10 +109,33 @@ const promptIntern = () => {
     .prompt([
         {
             type: 'type',
+            name: 'internName',
+            message: 'Please enter a name for your Intern.'
+        },
+        {
+            type: 'type',
+            name: 'internEmail',
+            message: 'Please enter the email for your Intern.',
+        },
+        {
+            type: 'type',
+            name: 'internID',
+            message: 'Please enter an ID for your Intern.',
+        },
+        {
+            type: 'type',
             name: 'internSchool',
             message: 'Please enter the school where your Intern went.',
         },
     ])
+    .then(internData => {
+        const { internName, internID, internEmail, internGithub } = internData;
+        const intern = new Intern ( internName, internID, internEmail, internGithub );
+
+        teamArray.push(intern)
+        console.log(intern);
+        promptSelect();
+    })
 };
 
 
