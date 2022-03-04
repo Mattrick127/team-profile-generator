@@ -1,7 +1,10 @@
 const inquirer = require('inquirer');
+const Manager = require('./lib/Manager');
 const generatePage = require('./src/page-template');
 const { writeFile, copyFile } = require('./utils/generate-site');
-
+let managers = [];
+let engineers = [];
+let interns = [];
 const promptManager = () => {
     console.log(`
     =====================================
@@ -30,36 +33,29 @@ const promptManager = () => {
             name: 'officeNumber',
             message: 'What is your office number for your manager?'
         },
-        {
-            type: 'input',
-            name: 'managerGithub',
-            message: 'What is your Github username?'
-        },
-        {
-            type: 'rawlist',
-            name: 'managerOption',
-            message: 'Would you like to add an engineer, an intern, or complete your profile?',
-            choices: ['Add an Engineer.', 'Add an Intern.', 'Finish Profile Generator']
-        }
     ])
 };
 
-
-
 promptManager()
-    .then(teamData => {
-        return generatePage(teamData);
-    })
-    .then(pageHTML => {
-        return writeFile(pageHTML);
-    })
-    .then(writeFileResponse => {
-        console.log(writeFileResponse);
-        return copyFile();
-    })
-    .then(copyFileResponse => {
-        console.log(copyFileResponse);
-    })
-    .catch(err => {
-        console.log(err);
-    });
+    .then(function(answers){
+
+        let newManager = new Manager(answers.managerName,answers.managerID,answers.managerEmail,answers.officeNumber);
+        answers.managers.push(newManager)
+});
+
+    // .then(generatorData => {
+    //     return generatePage(generatorData);
+    // })
+    // .then(pageHTML => {
+    //     return writeFile(pageHTML);
+    // })
+    // .then(writeFileResponse => {
+    //     console.log(writeFileResponse);
+    //     return copyFile();
+    // })
+    // .then(copyFileResponse => {
+    //     console.log(copyFileResponse);
+    // })
+    // .catch(err => {
+    //     console.log(err);
+    // });
