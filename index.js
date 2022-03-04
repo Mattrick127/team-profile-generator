@@ -2,9 +2,7 @@ const inquirer = require('inquirer');
 const Manager = require('./lib/Manager');
 const generatePage = require('./src/page-template');
 const { writeFile, copyFile } = require('./utils/generate-site');
-let managers = [];
-let engineers = [];
-let interns = [];
+let teamArray = [];
 const promptManager = () => {
     console.log(`
     =====================================
@@ -34,28 +32,62 @@ const promptManager = () => {
             message: 'What is your office number for your manager?'
         },
     ])
+    .then(managerData => {
+        const { managerName, managerID, managerEmail, officeNumber} = managerData;
+        const manager = new Manager (managerName, managerID, managerEmail, officeNumber);
+
+        teamArray.push(manager)
+        console.log(manager);
+    })
+};
+const promptEngineer = () => {
+    console.log('Please enter information about your team!');
+    return inquirer
+    .prompt([
+        {
+            type: 'rawlist',
+            name: 'engineerOption',
+            message: 'Would you like to add another Engineer, an Intern, or finish profile?',
+            choices: ['Add an Engineer.', 'Add an Intern', 'Finish Profile Generator']
+        }
+    ])
 };
 
+const promptIntern = () => {
+    console.log('Please enter information about your intern!');
+    return inquirer
+    .prompt([
+        {
+            type: 'rawlist',
+            name: 'internChoice',
+            message: 'Would you like to add another Engineer, an Intern, or finish profile?',
+            choices: ['Add an Engineer.', 'Add an Intern', 'Finish Profile Generator']
+        }
+    ])
+};
+
+
 promptManager()
-    .then(function(answers){
+    .then(generatorData => {
+        return generatePage(generatorData);
+    })
+    .then(pageHTML => {
+        return writeFile(pageHTML);
+    })
+    .then(writeFileResponse => {
+        console.log(writeFileResponse);
+        return copyFile();
+    })
+    .then(copyFileResponse => {
+        console.log(copyFileResponse);
+    })
+    .catch(err => {
+        console.log(err);
+    });
 
-        let newManager = new Manager(answers.managerName,answers.managerID,answers.managerEmail,answers.officeNumber);
-        answers.managers.push(newManager)
-});
 
-    // .then(generatorData => {
-    //     return generatePage(generatorData);
-    // })
-    // .then(pageHTML => {
-    //     return writeFile(pageHTML);
-    // })
-    // .then(writeFileResponse => {
-    //     console.log(writeFileResponse);
-    //     return copyFile();
-    // })
-    // .then(copyFileResponse => {
-    //     console.log(copyFileResponse);
-    // })
-    // .catch(err => {
-    //     console.log(err);
-    // });
+//     .then(function(answers){
+
+//         let newManager = new Manager(answers.managerName,answers.managerID,answers.managerEmail,answers.officeNumber);
+//         answers.managers.push(newManager)
+// });
