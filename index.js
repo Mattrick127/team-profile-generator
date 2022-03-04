@@ -165,6 +165,7 @@ const buildTeam = () => {
     })
     .catch(err => {
         console.log(err);
+        console.log(teamArray);
     });
 }
 
