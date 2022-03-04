@@ -136,12 +136,20 @@ const promptIntern = () => {
 };
 
 const buildTeam = () => {
-    console.log(teamArray)
-};
-
-promptManager()
-    .then (promptSelect)
-
+    return inquirer
+    .prompt([
+        {
+            type: 'rawlist',
+            name: 'final',
+            message: 'Are you are you added everyone to your team?',
+            choices: ['Yes', 'No']
+        }
+    ])
+    .then (({ final }) => {
+        if(final === 'No') {
+            promptSelect();
+        }
+    })
     .then(teamArray => {
         return generatePage(teamArray);
     })
@@ -158,3 +166,9 @@ promptManager()
     .catch(err => {
         console.log(err);
     });
+}
+
+promptManager()
+    .then (promptSelect)
+    
+

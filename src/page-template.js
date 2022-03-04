@@ -1,3 +1,6 @@
 module.exports = templateData => {
-    return ``
+    console.log(templateData);
+    return `
+    ${templateData}
+    `
 }
