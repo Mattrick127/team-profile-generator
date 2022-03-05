@@ -19,14 +19,12 @@ module.exports = templateData => {
   
   <body>
     <header>
+      <h1>Welcome to your Team!</h1>
       <div class="container flex-row justify-space-between align-center py-3">
-      <h1 class="page-title text-secondary bg-dark py-2 px-3">Manager Info:     ${header['0'].name} ${header['0'].id} <a href ="https://${header['0'].email}"> ${header['0'].officeNumber}</h1>
+      <h1 class="page-title text-secondary bg-dark py-2 px-3">Manager Info-     Name: ${header['0'].name},  ID:  ${header['0'].id},  Office Number:   ${header['0'].officeNumber}</h1>
       <a class="ml-2 my-1 px-2 py-1 bg-secondary text-dark" href="https://${header['0'].email}">Email</a>
-      <h1 class="page-title text-secondary bg-dark py-2 px-3">Manager Info:     ${header['1'].name} ${header['1'].id} ${header['1'].email} ${header['1'].github}</h1>
-      <h1 class="page-title text-secondary bg-dark py-2 px-3">Manager Info:     ${header['2'].name} ${header['2'].id} ${header['2'].email} ${header['2'].school}</h1>
-        <nav class="flex-row">
-          <a class="ml-2 my-1 px-2 py-1 bg-secondary text-dark" href="https://github.com/${header['1'].github}">GitHub</a>
-        </nav>
+      <h1 class="page-title text-secondary bg-dark py-2 px-3">Engineer Info-    Name: ${header['1'].name},  ID:   ${header['1'].id},  Email:   ${header['1'].email},  Github:   ${header['1'].github}</h1>
+      <h1 class="page-title text-secondary bg-dark py-2 px-3">Intern Info-     Name:  ${header['2'].name},  ID:   ${header['2'].id},  Email:   ${header['2'].email},  School:   ${header['2'].school}</h1>
       </div>
     </header>
     <main class="container my-5">
