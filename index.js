@@ -127,8 +127,8 @@ const promptIntern = () => {
         },
     ])
     .then(internData => {
-        const { internName, internID, internEmail, internGithub } = internData;
-        const intern = new Intern ( internName, internID, internEmail, internGithub );
+        const { internName, internID, internEmail, internSchool } = internData;
+        const intern = new Intern ( internName, internID, internEmail, internSchool );
 
         teamArray.push(intern)
         promptSelect();
@@ -149,8 +149,9 @@ const buildTeam = () => {
         if(final === 'No') {
             promptSelect();
         }
-    })
-    .then(teamArray => {
+    }) 
+    .then(() => {
+        console.log('Check!', teamArray)
         return generatePage(teamArray);
     })
     .then(pageHTML => {
@@ -165,7 +166,6 @@ const buildTeam = () => {
     })
     .catch(err => {
         console.log(err);
-        console.log(teamArray);
     });
 }
 
