@@ -1,7 +1,37 @@
 // export function to generate entire page
-module.exports = templateData => {
+let managerCards = (managerArray) => {
+  let manCards = ``
+    for (let i = 0; i < managerArray.length; i++) {
+      let manager = managerArray[i]
+      newCard = `<h1 class="page-title text-secondary bg-dark py-2 px-3">Manager Info-     Name: ${manager.name},  ID:  ${manager.id},  Email: <a href="https://${manager.email}">Email</a>  Office Number:   ${manager.officeNumber}</h1>`
+      manCards += newCard;
+    }
+    return manCards
+}
+
+let engineerCards = (engineerArray) => {
+  let engCards = ``
+    for (let i = 0; i < engineerArray.length; i++) {
+      let engineer = engineerArray[i]
+      newCard = `<h1 class="page-title text-secondary bg-dark py-2 px-3">Engineer Info-     Name: ${engineer.name},  ID:  ${engineer.id},  Email: <a href="https://${engineer.email}">Email</a>  Github:   <a href="https://www.github.com/${engineer.github}">Github</a></h1>`
+      engCards += newCard;
+    }
+    return engCards
+}
+
+let internCards = (internArray) => {
+  let intCards = ``
+    for (let i = 0; i < internArray.length; i++) {
+      let intern = internArray[i]
+      newCard = `<h1 class="page-title text-secondary bg-dark py-2 px-3">Intern Info-     Name: ${intern.name},  ID:  ${intern.id},  Email: <a href="https://${intern.email}">Email</a>  Office Number:   ${intern.school}</h1>`
+      intCards += newCard;
+    }
+    return intCards
+}
+
+module.exports = (managerArray, engineerArray, internArray) => {
   // destructure page data by section
-  const {  ...header } = templateData;
+  // const {  ...header } = templateData;
 
   return `
   <!DOCTYPE html>
@@ -21,17 +51,15 @@ module.exports = templateData => {
     <header>
       <h1>Welcome to your Team!</h1>
       <div class="container flex-row justify-space-between align-center py-3">
-      <h1 class="page-title text-secondary bg-dark py-2 px-3">Manager Info-     Name: ${header['0'].name},  ID:  ${header['0'].id},  Office Number:   ${header['0'].officeNumber}</h1>
-      <a class="ml-2 my-1 px-2 py-1 bg-secondary text-dark" href="https://${header['0'].email}">Email</a>
-      <h1 class="page-title text-secondary bg-dark py-2 px-3">Engineer Info-    Name: ${header['1'].name},  ID:   ${header['1'].id},  Email:   ${header['1'].email},  Github:   ${header['1'].github}</h1>
-      <h1 class="page-title text-secondary bg-dark py-2 px-3">Intern Info-     Name:  ${header['2'].name},  ID:   ${header['2'].id},  Email:   ${header['2'].email},  School:   ${header['2'].school}</h1>
+      ${managerCards(managerArray)}
+      ${engineerCards(engineerArray)}
+      ${internCards(internArray)}
       </div>
     </header>
     <main class="container my-5">
 
     </main>
     <footer class="container text-center py-3">
-      <h3 class="text-dark">&copy;2020 by ${header['0'].name}</h3>
     </footer>
   </body>
   </html>

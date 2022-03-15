@@ -7,7 +7,9 @@ const Intern = require('./lib/Intern');
 const generatePage = require('./src/page-template');
 const { writeFile, copyFile } = require('./utils/generate-site');
 
-let teamArray = [];
+let managerArray = [];
+let engineerArray = [];
+let internArray = [];
 
 const promptManager = () => {
     console.log(`
@@ -42,7 +44,7 @@ const promptManager = () => {
         const { managerName, managerID, managerEmail, officeNumber} = managerData;
         const manager = new Manager (managerName, managerID, managerEmail, officeNumber);
 
-        teamArray.push(manager)
+        managerArray.push(manager)
     })
 };
 
@@ -96,7 +98,7 @@ const promptEngineer = () => {
         const { engineerName, engineerID, engineerEmail, engineerGithub } = engineerData;
         const engineer = new Engineer ( engineerName, engineerID, engineerEmail, engineerGithub );
 
-        teamArray.push(engineer)
+        engineerArray.push(engineer)
         promptSelect();
     })
 };
@@ -130,7 +132,7 @@ const promptIntern = () => {
         const { internName, internID, internEmail, internSchool } = internData;
         const intern = new Intern ( internName, internID, internEmail, internSchool );
 
-        teamArray.push(intern)
+        internArray.push(intern)
         promptSelect();
     })
 };
@@ -151,8 +153,8 @@ const buildTeam = () => {
         }
     }) 
     .then(() => {
-        console.log('Check!', teamArray)
-        return generatePage(teamArray);
+        console.log('Check!', managerArray, engineerArray, internArray)
+        return generatePage(managerArray, engineerArray, internArray);
     })
     .then(pageHTML => {
         return writeFile(pageHTML);
