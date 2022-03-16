@@ -19,6 +19,8 @@ Go to my github and undex team-profile-generator, git clone it to your local.
 
 To be able to quickly generate a profile for your team!
 
+chrome-extension://mmeijimgabbpbgpdklnllpncmdofkcpn/app.html#/files/fa96e3ae-8350-4016-y33b-11d4d39fe72a
+
 
 ## Contributing
 
