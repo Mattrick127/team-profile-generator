@@ -5,7 +5,6 @@ let managerCards = (managerArray) => {
       let manager = managerArray[i]
       newCard = `
       <h1 class="page-title text-secondary bg-dark py-2 px-3">
-      Manager Info-     
       Name: ${manager.name},  
       ID:  ${manager.id},  
       Email: <a href="https://${manager.email}">Email</a>  
@@ -22,11 +21,10 @@ let engineerCards = (engineerArray) => {
       let engineer = engineerArray[i]
       newCard = `
       <h1 class="page-title text-secondary bg-dark py-2 px-3">
-      Engineer Info-     
       Name: ${engineer.name},  
       ID:  ${engineer.id},  
       Email: <a href="https://${engineer.email}">Email</a>  
-      Github:   <a href="https://www.github.com/${engineer.github}"></h1>
+      Github:   <a href="https://www.github.com/${engineer.github}">${engineer.github}</a></h1>
       `
       engCards += newCard;
     }
@@ -39,11 +37,10 @@ let internCards = (internArray) => {
       let intern = internArray[i]
       newCard = `
       <h1 class="page-title text-secondary bg-dark py-2 px-3">
-      Intern Info-     
       Name: ${intern.name},  
       ID:  ${intern.id},  
       Email: <a href="https://${intern.email}">Email</a>  
-      Office Number:   ${intern.school}</h1>
+      School:   ${intern.school}</h1>
       `
       intCards += newCard;
     }
@@ -51,8 +48,6 @@ let internCards = (internArray) => {
 }
 
 module.exports = (managerArray, engineerArray, internArray) => {
-  // destructure page data by section
-  // const {  ...header } = templateData;
 
   return `
   <!DOCTYPE html>
@@ -70,15 +65,21 @@ module.exports = (managerArray, engineerArray, internArray) => {
   
   <body>
     <header>
-      <h1>Welcome to your Team!</h1>
+      <h1 class="welcome">Welcome to your Team!</h1>
+    </header>
+    <br>
+    <main class="container my-5">
       <div class="container flex-row justify-space-between align-center py-3">
+      <br>
+      <h1 class="manager">This is your manager!:</h1>
       ${managerCards(managerArray)}
+      <br>
+      <h1 class="engineer">Your engineer(s)!:</h1>
       ${engineerCards(engineerArray)}
+      <br>
+      <h1 class="intern">Meet your intern(s)!:</h1>
       ${internCards(internArray)}
       </div>
-    </header>
-    <main class="container my-5">
-
     </main>
     <footer class="container text-center py-3">
     </footer>
