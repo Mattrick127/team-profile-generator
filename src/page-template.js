@@ -3,7 +3,14 @@ let managerCards = (managerArray) => {
   let manCards = ``
     for (let i = 0; i < managerArray.length; i++) {
       let manager = managerArray[i]
-      newCard = `<h1 class="page-title text-secondary bg-dark py-2 px-3">Manager Info-     Name: ${manager.name},  ID:  ${manager.id},  Email: <a href="https://${manager.email}">Email</a>  Office Number:   ${manager.officeNumber}</h1>`
+      newCard = `
+      <h1 class="page-title text-secondary bg-dark py-2 px-3">
+      Manager Info-     
+      Name: ${manager.name},  
+      ID:  ${manager.id},  
+      Email: <a href="https://${manager.email}">Email</a>  
+      Office Number:   ${manager.officeNumber}</h1>
+      `
       manCards += newCard;
     }
     return manCards
@@ -13,7 +20,14 @@ let engineerCards = (engineerArray) => {
   let engCards = ``
     for (let i = 0; i < engineerArray.length; i++) {
       let engineer = engineerArray[i]
-      newCard = `<h1 class="page-title text-secondary bg-dark py-2 px-3">Engineer Info-     Name: ${engineer.name},  ID:  ${engineer.id},  Email: <a href="https://${engineer.email}">Email</a>  Github:   <a href="https://www.github.com/${engineer.github}">Github</a></h1>`
+      newCard = `
+      <h1 class="page-title text-secondary bg-dark py-2 px-3">
+      Engineer Info-     
+      Name: ${engineer.name},  
+      ID:  ${engineer.id},  
+      Email: <a href="https://${engineer.email}">Email</a>  
+      Github:   <a href="https://www.github.com/${engineer.github}"></h1>
+      `
       engCards += newCard;
     }
     return engCards
@@ -23,7 +37,14 @@ let internCards = (internArray) => {
   let intCards = ``
     for (let i = 0; i < internArray.length; i++) {
       let intern = internArray[i]
-      newCard = `<h1 class="page-title text-secondary bg-dark py-2 px-3">Intern Info-     Name: ${intern.name},  ID:  ${intern.id},  Email: <a href="https://${intern.email}">Email</a>  Office Number:   ${intern.school}</h1>`
+      newCard = `
+      <h1 class="page-title text-secondary bg-dark py-2 px-3">
+      Intern Info-     
+      Name: ${intern.name},  
+      ID:  ${intern.id},  
+      Email: <a href="https://${intern.email}">Email</a>  
+      Office Number:   ${intern.school}</h1>
+      `
       intCards += newCard;
     }
     return intCards
