@@ -17,6 +17,8 @@ Go to my github and undex team-profile-generator, git clone it to your local.
 
 Simply NPM i for installing dependecies, and then NODE INDEX to run the program.
 
+NPM TEST runs tests for classes.
+
 After the prompt, an index.html file will be added to the dist folder.
 
 ## Usage
