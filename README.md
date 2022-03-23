@@ -15,7 +15,7 @@ This node.js application when run will prompt a series of questions for one to b
 
 Go to my github and undex team-profile-generator, git clone it to your local.
 
-Simply NPM i for installing dependecies, and then NODE INDEX to run the programs.
+Simply NPM i for installing dependecies, and then NODE INDEX to run the program.
 
 After the prompt, an index.html file will be added to the dist folder.
 
